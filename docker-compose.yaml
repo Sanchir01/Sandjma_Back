@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  main:
+    container_name: main
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - 5000:5000
+      - 9292:9292
+    command: sh -c "npx prisma generate && npm run dev"
+    depends_on:
+      - postgres
+    restart: always
+  postgres:
+    container_name: postgres
+    image: postgres:15
+    env_file:
+      - .env
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: sanchirgarik01
+      POSTGRES_DB: test_v2
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+volumes:
+  pgdata:

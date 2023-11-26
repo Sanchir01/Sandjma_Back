@@ -1,0 +1,234 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input AuthInput {
+  email: String!
+  password: String!
+  phone: String!
+}
+
+type AuthResponse {
+  accessToken: String!
+  refreshToken: String!
+  user: returnUserFields!
+}
+
+input CreateCategoryInput {
+  image: String
+  name: String!
+}
+
+input CreateColorInput {
+  imageCss: String!
+  name: String!
+}
+
+input CreateInsolationInput {
+  name: String!
+}
+
+input CreateProductInput {
+  categorySlug: String!
+  colors: [String!]!
+  description: String!
+  images: [String!]!
+  insolation: String!
+  name: String!
+  news: Boolean
+  price: Int!
+  productColor: String!
+  sellers: Boolean
+  size: [String!]!
+}
+
+input CreateSizeInput {
+  name: String!
+}
+
+input DeleteInsolationInput {
+  name: String!
+}
+
+input GetAllProductInput {
+  categoryId: String
+  maxPrice: String
+  minPrice: String
+  newProduct: Boolean = false
+  page: String
+  perPage: String
+  searchTerm: String
+  seller: Boolean = false
+  sort: String
+}
+
+input GetCategoryByIdInput {
+  id: Int!
+}
+
+input GetCategoryBySlugInput {
+  slug: String!
+}
+
+input GetProductByColor {
+  colorId: Int!
+  slug: String!
+}
+
+input GetProductById {
+  id: Int!
+}
+
+type Insolation {
+  id: Int!
+  name: String!
+  slug: String!
+}
+
+input LoginInput {
+  password: String!
+  phone: String!
+}
+
+type Mutation {
+  crateInsolation(createInsolationInput: CreateInsolationInput!): Insolation!
+  createCategory(createCategoryInput: CreateCategoryInput!): ResponseCategory!
+  createColor(createReturnColorsInput: CreateColorInput!): ReturnColors!
+  createProduct(createProductInput: CreateProductInput!): ReturnFieldByCreateProduct!
+  createProductColor(productColorInput: ProductColorInput!): ProductColor!
+  createSize(crateSizeInput: CreateSizeInput!): Size!
+  deleteCategory(id: Float!): ResponseCategory!
+  deleteColor(deleteReturnColorsInput: CreateColorInput!): ReturnColors!
+  deleteInsolation(deleteInsolationInput: DeleteInsolationInput!): Insolation!
+  deleteProduct(deleteProductById: GetProductById!): Product!
+  deleteProductColor(productColorInput: ProductColorInput!): ProductColor!
+  deleteSize(id: Float!): Size!
+  login(loginInput: LoginInput!): AuthResponse!
+  newToken: newTokensResponse!
+  register(authInput: AuthInput!): AuthResponse!
+  toggleFavoritesProfile(productId: Float!): String!
+  updateCategory(updateCategoryInput: UpdateCategoryInput!): ResponseCategory!
+  updateColor(updateReturnColorsInput: CreateColorInput!): ReturnColors!
+  updateInsolation(updateInsolationInput: UpdateInsolationInput!): Insolation!
+  updateProductColor(productColorInput: ProductColorInput!): ProductColor!
+  updateProfile(updateUserProfileInput: UpdateUserProfileInput!): User!
+}
+
+type Product {
+  categoryId: Int!
+  colors: [ReturnColors!]!
+  description: String!
+  id: Int!
+  images: [String!]!
+  insulationId: Int!
+  name: String!
+  price: Int!
+  size: [Size!]!
+  slug: String!
+}
+
+type ProductColor {
+  id: Int!
+  name: String!
+  slug: String!
+}
+
+input ProductColorInput {
+  name: String!
+}
+
+type ProductFiled {
+  categoryId: Int!
+  id: Int!
+  name: String!
+}
+
+type Query {
+  """allCategories"""
+  getAllCategories: [ResponseCategory!]!
+  getAllColors: [ReturnColors!]!
+  getAllInsolation: [Insolation!]!
+  getAllProduct: [ProductColor!]!
+  getAllProducts(getAllProductInput: GetAllProductInput!): allProductsAndLength!
+  getAllSize: [Size!]!
+  getCategoryById(getCategoryByIdInput: GetCategoryByIdInput!): ResponseCategory!
+
+  """nameGetCategoryBySlug"""
+  getCategoryBySlug(getCategoryBySlugInput: GetCategoryBySlugInput!): ResponseCategory!
+  getProductByColor(getProductByColor: GetProductByColor!): [Product!]!
+  getProductById(getProductById: GetProductById!): Product!
+  getProfile: User!
+}
+
+type ResponseCategory {
+  id: Int!
+  image: String!
+  name: String!
+  slug: String!
+}
+
+type ReturnColors {
+  id: Int!
+  imageCss: String!
+  name: String!
+  products: [ProductFiled!]!
+  slug: String!
+}
+
+type ReturnFieldByCreateProduct {
+  categoryId: Int!
+  description: String!
+  id: Int!
+  images: [String!]!
+  name: String!
+  price: Int!
+  slug: String!
+}
+
+type Size {
+  id: Int!
+  name: String!
+}
+
+input UpdateCategoryInput {
+  id: Int!
+  image: String
+  name: String!
+}
+
+input UpdateInsolationInput {
+  name: String!
+}
+
+input UpdateUserProfileInput {
+  avatarPath: String
+  email: String!
+  name: String
+  password: String!
+}
+
+type User {
+  avatarPath: String!
+  email: String!
+  favorites: [Product!]
+  id: Int!
+  isAdmin: Boolean!
+  name: String!
+  password: String!
+}
+
+type allProductsAndLength {
+  length: Int!
+  products: [Product!]!
+}
+
+type newTokensResponse {
+  User: returnUserFields!
+  accessToken: String!
+}
+
+type returnUserFields {
+  email: String!
+  id: Int!
+  isAdmin: Boolean!
+}
