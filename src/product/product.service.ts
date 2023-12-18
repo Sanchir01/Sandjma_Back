@@ -56,8 +56,6 @@ export class ProductService {
 			}
 		})
 
-		
-
 		if (!isExistCategory) throw new BadRequestException('Нету такой категории')
 
 		const isExistInsolution = await this.prisma.insulation.findUnique({
