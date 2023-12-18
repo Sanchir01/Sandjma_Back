@@ -10,6 +10,6 @@ async function bootstrap() {
 		origin: process.env.CLIENT_URL
 	})
 	app.use(cookieParser())
-	await app.listen(5000, process.env.PORT)
+	await app.listen(process.env.PORT)
 }
 bootstrap()
