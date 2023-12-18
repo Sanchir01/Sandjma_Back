@@ -8,8 +8,11 @@ RUN npm ci
 
 COPY . .
 
-CMD [ "npx", "prisma", "db", "push" ]
+RUN npx prisma generate
 
+CMD [ "npm", "run","start"]
+
+# ENTRYPOINT ["npm","run","start"]
 
 
 
