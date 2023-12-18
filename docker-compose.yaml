@@ -14,7 +14,7 @@ services:
     ports:
       - 5000:5000
       - 9292:9292
-    command: sh -c "npx prisma db push && npx prisma generate && npm run dev"
+    command: sh -c "npx prisma db push && npx prisma generate && npm run start"
     depends_on:
       - postgres
     restart: always

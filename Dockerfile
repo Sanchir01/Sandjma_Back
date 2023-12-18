@@ -8,7 +8,8 @@ RUN npm ci
 
 COPY . .
 
-CMD [ "npx", "prisma", "db", "push" ]
+CMD [ "npx", "prisma", "db", "push" ,'npm', 'run', 'start']
+
 
 
 
