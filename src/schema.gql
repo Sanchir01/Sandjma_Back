@@ -123,6 +123,7 @@ type Product {
   insulationId: Int!
   name: String!
   price: Int!
+  productColorId: Int!
   size: [Size!]!
   slug: String!
 }

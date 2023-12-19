@@ -19,6 +19,9 @@ export class Product {
 	@Field(() => Int)
 	price: number
 
+	@Field(() => Int)
+	productColorId: number
+
 	@Field(() => [String])
 	images: string[]
 
