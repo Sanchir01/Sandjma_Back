@@ -30,6 +30,10 @@ export class GetAllProductInput extends PaginationInput {
 
 	@Field({ nullable: true, defaultValue: false })
 	seller: boolean
+
+	@Field({ nullable: true })
+	colorId?: number
+
+	@Field({ nullable: true })
+	getProductByInsulation?: number
 }
-
-

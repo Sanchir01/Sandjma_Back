@@ -52,6 +52,8 @@ input DeleteInsolationInput {
 
 input GetAllProductInput {
   categoryId: String
+  colorId: Float
+  getProductByInsulation: Float
   maxPrice: String
   minPrice: String
   newProduct: Boolean = false

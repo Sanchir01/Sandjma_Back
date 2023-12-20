@@ -188,6 +188,10 @@ export class ProductService {
 		return { newProduct: news }
 	}
 
+	private getProductByColorId(colorId: number): Prisma.ProductWhereInput {
+		return { productColorId: colorId }
+	}
+
 	private getPriceFilter(
 		minPrice?: number,
 		maxPrice?: number
@@ -243,6 +247,11 @@ export class ProductService {
 				return [{ name: 'desc' }]
 		}
 	}
+	private getProductByInsulation(
+		insulationId: number
+	): Prisma.ProductWhereInput {
+		return { insulationId }
+	}
 
 	private getCategoryFilter(categoryId: number): Prisma.ProductWhereInput {
 		return {
@@ -263,7 +272,12 @@ export class ProductService {
 					convertToNumber(getAllProductInput.maxPrice)
 				)
 			)
-
+		if (getAllProductInput.getProductByInsulation)
+			filters.push(
+				this.getProductByInsulation(getAllProductInput.getProductByInsulation)
+			)
+		if (getAllProductInput.colorId)
+			filters.push(this.getProductByColorId(getAllProductInput.colorId))
 		if (getAllProductInput.seller)
 			filters.push(this.getSellerItemFilter(getAllProductInput.seller))
 
