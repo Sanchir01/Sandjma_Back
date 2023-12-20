@@ -47,8 +47,7 @@ export class ProductService {
 		)
 		console.log(colorDefault)
 
-		if (!colorDefault)
-			throw new NotFoundException('Вы не правильно введи категорию')
+		if (colorDefault === -1) throw new NotFoundException('Такого цвета нету')
 
 		const isExistCategory = await this.prisma.category.findUnique({
 			where: {
