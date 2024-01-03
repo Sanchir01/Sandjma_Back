@@ -82,8 +82,8 @@ export class AuthService {
 
 	private async issueTokens(user: User) {
 		const data = { id: user.id, isAdmin: user.isAdmin }
-		const accessToken = this.jwt.sign(data, { expiresIn: '7d' })
-		const refreshToken = this.jwt.sign(data, { expiresIn: '2d' })
+		const accessToken = this.jwt.sign(data, { expiresIn: '30d' })
+		const refreshToken = this.jwt.sign(data, { expiresIn: '1d' })
 
 		return { accessToken, refreshToken }
 	}
@@ -97,11 +97,12 @@ export class AuthService {
 	}
 	addAccessToken(res: Response, accessToken: string) {
 		const expireIn = new Date()
-		expireIn.setDate(expireIn.getDate() + 7)
+		expireIn.setDate(expireIn.getDate() + 30)
 
 		res.cookie(EnumTokens.ACCESS_TOKEN, accessToken, {
 			httpOnly: true,
-			domain: 'localhost',
+			path: '/auth',
+			domain: 'http://localhost:3000',
 			secure: false,
 			expires: expireIn,
 			sameSite: 'strict'
@@ -113,7 +114,8 @@ export class AuthService {
 
 		res.cookie(EnumTokens.REFRESH_TOKEN, refreshToken, {
 			httpOnly: false,
-			domain: 'localhost',
+			path: '/auth',
+			domain: 'http://localhost:3000',
 			secure: false,
 			expires: expireIn,
 			sameSite: 'strict'

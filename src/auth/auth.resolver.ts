@@ -27,7 +27,6 @@ export class AuthResolver {
 
 	@Mutation(() => newTokensResponse)
 	async newToken(@Context('req') req: Request, @Context('res') res: Response) {
-	
 		const { refreshToken, ...user } = await this.authService.getNewTokens(
 			req.cookies.accessToken as string
 		)
