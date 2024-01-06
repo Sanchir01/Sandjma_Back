@@ -45,7 +45,6 @@ export class ProductService {
 			item =>
 				item.toLowerCase() === createProductInput.productColor.toLowerCase()
 		)
-		console.log(colorDefault)
 
 		if (colorDefault === -1) throw new NotFoundException('Такого цвета нету')
 
@@ -134,7 +133,6 @@ export class ProductService {
 		})
 
 		if (!product) throw new NotFoundException('Товар не найден')
-		console.log(product)
 		return product
 	}
 
@@ -159,7 +157,7 @@ export class ProductService {
 		})
 
 		if (!product) throw new NotFoundException('Товар не найден')
-		console.log(product)
+
 		return product
 	}
 
