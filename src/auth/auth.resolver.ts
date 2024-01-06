@@ -10,8 +10,13 @@ export class AuthResolver {
 	constructor(private readonly authService: AuthService) {}
 
 	@Mutation(() => AuthResponse)
-	async register(@Args('authInput') authInput: AuthInput) {
-		return this.authService.register(authInput)
+	async register(
+		@Args('authInput') authInput: AuthInput,
+		@Context('res') res: Response
+	) {
+		const user = await this.authService.register(authInput)
+		await this.authService.addAccessToken(res, user.accessToken)
+		return user
 	}
 
 	@Mutation(() => AuthResponse)
@@ -20,8 +25,9 @@ export class AuthResolver {
 		@Context('res') res: Response
 	) {
 		const user = await this.authService.login(loginInput)
-		this.authService.addAccessToken(res, user.accessToken)
 
+		await this.authService.addAccessToken(res, user.accessToken)
+		console.log(user, res)
 		return user
 	}
 
@@ -30,8 +36,8 @@ export class AuthResolver {
 		const { refreshToken, ...user } = await this.authService.getNewTokens(
 			req.cookies.accessToken as string
 		)
-
-		this.authService.addRefreshTokenFromCookie(res, refreshToken)
+		console.log(req.cookies)
+		await this.authService.addRefreshTokenFromCookie(res, refreshToken)
 
 		return user
 	}

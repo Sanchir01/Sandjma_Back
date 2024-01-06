@@ -98,11 +98,8 @@ export class AuthService {
 	addAccessToken(res: Response, accessToken: string) {
 		const expireIn = new Date()
 		expireIn.setDate(expireIn.getDate() + 30)
-
 		res.cookie(EnumTokens.ACCESS_TOKEN, accessToken, {
 			httpOnly: true,
-			path: '/auth',
-			domain: 'http://localhost:3000',
 			secure: false,
 			expires: expireIn,
 			sameSite: 'strict'
@@ -111,11 +108,8 @@ export class AuthService {
 	addRefreshTokenFromCookie(res: Response, refreshToken: string) {
 		const expireIn = new Date()
 		expireIn.setDate(expireIn.getDate() + 1)
-
 		res.cookie(EnumTokens.REFRESH_TOKEN, refreshToken, {
 			httpOnly: false,
-			path: '/auth',
-			domain: 'http://localhost:3000',
 			secure: false,
 			expires: expireIn,
 			sameSite: 'strict'
