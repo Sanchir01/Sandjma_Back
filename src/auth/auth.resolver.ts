@@ -25,9 +25,9 @@ export class AuthResolver {
 		@Context('res') res: Response
 	) {
 		const user = await this.authService.login(loginInput)
-
+		console.log(user)
 		await this.authService.addAccessToken(res, user.accessToken)
-		
+
 		return user
 	}
 

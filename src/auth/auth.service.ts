@@ -100,9 +100,9 @@ export class AuthService {
 		expireIn.setDate(expireIn.getDate() + 30)
 		res.cookie(EnumTokens.ACCESS_TOKEN, accessToken, {
 			httpOnly: true,
-			secure: false,
+			secure: true,
 			expires: expireIn,
-			sameSite: 'lax'
+			sameSite: 'none'
 		})
 	}
 }
