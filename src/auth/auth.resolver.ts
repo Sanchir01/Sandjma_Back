@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 import { AuthService } from './auth.service'
 import { AuthInput } from './dto/auth.input'
 import { LoginInput } from './dto/login.input'
-import { AuthResponse, newTokensResponse } from './entities/auth.entity'
+import { AuthResponse } from './entities/auth.entity'
 
 @Resolver()
 export class AuthResolver {
@@ -31,14 +31,11 @@ export class AuthResolver {
 		return user
 	}
 
-	@Mutation(() => newTokensResponse)
-	async newToken(@Context('req') req: Request, @Context('res') res: Response) {
-		const { refreshToken, ...user } = await this.authService.getNewTokens(
+	@Mutation(() => AuthResponse)
+	async newToken(@Context('req') req: Request) {
+		const user = await this.authService.getNewTokens(
 			req.cookies.accessToken as string
 		)
-		console.log(req.cookies)
-		await this.authService.addRefreshTokenFromCookie(res, refreshToken)
-
 		return user
 	}
 }

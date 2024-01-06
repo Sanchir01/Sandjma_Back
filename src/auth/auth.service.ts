@@ -105,14 +105,5 @@ export class AuthService {
 			sameSite: 'strict'
 		})
 	}
-	addRefreshTokenFromCookie(res: Response, refreshToken: string) {
-		const expireIn = new Date()
-		expireIn.setDate(expireIn.getDate() + 1)
-		res.cookie(EnumTokens.REFRESH_TOKEN, refreshToken, {
-			httpOnly: false,
-			secure: false,
-			expires: expireIn,
-			sameSite: 'strict'
-		})
-	}
+
 }

@@ -106,7 +106,7 @@ type Mutation {
   deleteProductColor(productColorInput: ProductColorInput!): ProductColor!
   deleteSize(id: Float!): Size!
   login(loginInput: LoginInput!): AuthResponse!
-  newToken: newTokensResponse!
+  newToken: AuthResponse!
   register(authInput: AuthInput!): AuthResponse!
   toggleFavoritesProfile(productId: Float!): String!
   updateCategory(updateCategoryInput: UpdateCategoryInput!): ResponseCategory!
@@ -223,11 +223,6 @@ type User {
 type allProductsAndLength {
   length: Int!
   products: [Product!]!
-}
-
-type newTokensResponse {
-  User: returnUserFields!
-  accessToken: String!
 }
 
 type returnUserFields {
