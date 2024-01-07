@@ -27,6 +27,15 @@ export class UserService {
 						images: true,
 						slug: true,
 						price: true,
+						productColorId: true,
+						insulationId: true,
+						colors: {
+							select: {
+								id: true,
+								name: true,
+								imageCss: true
+							}
+						},
 						size: {
 							select: {
 								id: true,
