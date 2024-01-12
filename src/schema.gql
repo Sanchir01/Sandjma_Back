@@ -28,6 +28,10 @@ input CreateInsolationInput {
   name: String!
 }
 
+input CreateOrderInput {
+  items: [OrderItemDto!]!
+}
+
 input CreateProductInput {
   categorySlug: String!
   colors: [String!]!
@@ -107,6 +111,7 @@ type Mutation {
   deleteSize(id: Float!): Size!
   login(loginInput: LoginInput!): AuthResponse!
   newToken: AuthResponse!
+  placeOrderOne(createOrderInput: CreateOrderInput!): String!
   register(authInput: AuthInput!): AuthResponse!
   toggleFavoritesProfile(productId: Float!): String!
   updateCategory(updateCategoryInput: UpdateCategoryInput!): ResponseCategory!
@@ -114,6 +119,15 @@ type Mutation {
   updateInsolation(updateInsolationInput: UpdateInsolationInput!): Insolation!
   updateProductColor(productColorInput: ProductColorInput!): ProductColor!
   updateProfile(updateUserProfileInput: UpdateUserProfileInput!): User!
+}
+
+input OrderItemDto {
+  color: String!
+  price: Int!
+  productId: Int!
+  productName: String!
+  quantity: Int!
+  size: String!
 }
 
 type Product {
@@ -151,6 +165,7 @@ type Query {
   getAllCategories: [ResponseCategory!]!
   getAllColors: [ReturnColors!]!
   getAllInsolation: [Insolation!]!
+  getAllOrders: String!
   getAllProduct: [ProductColor!]!
   getAllProducts(getAllProductInput: GetAllProductInput!): allProductsAndLength!
   getAllSize: [Size!]!

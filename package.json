@@ -33,6 +33,7 @@
     "@types/jsonwebtoken": "^9.0.2",
     "argon2": "^0.31.0",
     "cookie-parser": "^1.4.6",
+    "exceljs": "^4.4.0",
     "graphql": "^16.8.0",
     "jsonwebtoken": "^9.0.2",
     "node-telegram-bot-api": "^0.64.0",

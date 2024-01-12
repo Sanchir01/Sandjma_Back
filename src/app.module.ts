@@ -16,6 +16,7 @@ import { UserModule } from './user/user.module'
 import { ColorModule } from './color/color.module';
 import { InsulationModule } from './insulation/insulation.module';
 import { ProductColorModule } from './product-color/product-color.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
 	imports: [
@@ -38,7 +39,8 @@ import { ProductColorModule } from './product-color/product-color.module';
 		SizeModule,
 		ColorModule,
 		InsulationModule,
-		ProductColorModule
+		ProductColorModule,
+		OrderModule
 	],
 	controllers: [AppController],
 	providers: [AppService]
