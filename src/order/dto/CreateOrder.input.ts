@@ -18,10 +18,10 @@ export class OrderItemDto {
 	size: string
 
 	@Field(() => String)
-	color: string
+	productName: string
 
 	@Field(() => String)
-	productName: string
+	productColor: string
 
 	@Field(() => Int)
 	productId: number

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
-import * as excel from 'exceljs'
 
+import { ForbiddenError } from '@nestjs/apollo'
+import * as excel from 'exceljs'
 import * as TelegramBot from 'node-telegram-bot-api'
 import { PrismaService } from 'src/prisma/prisma.service'
 import { CreateOrderInput } from './dto/CreateOrder.input'
@@ -24,7 +25,6 @@ export class OrderService {
 				}
 			}
 		})
-		
 
 		return allOrders
 	}
@@ -34,9 +34,9 @@ export class OrderService {
 			data: {
 				items: {
 					create: createOrderInput.items.map(item => ({
-						productId: item.productId,
+						quantity: item.quantity,
 						price: item.price,
-						quantity: item.quantity
+						productId: item.productId
 					}))
 				},
 				user: {
@@ -48,6 +48,9 @@ export class OrderService {
 		})
 
 		const user = await this.prisma.user.findUnique({ where: { id: userId } })
+		if (!user) {
+			throw new ForbiddenError('пройдите регистрацию')
+		}
 		console.log(order)
 
 		const price = await this.finalPrice(createOrderInput)
@@ -135,7 +138,7 @@ export class OrderService {
 					Название_товара: item.productName,
 					цена_товара: item.price,
 					количество: item.quantity,
-					цвет_товара: item.color,
+					цвет_товара: item.productColor,
 					размер_товара: item.size
 				}
 			])

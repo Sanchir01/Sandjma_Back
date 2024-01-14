@@ -122,8 +122,8 @@ type Mutation {
 }
 
 input OrderItemDto {
-  color: String!
   price: Int!
+  productColor: String!
   productId: Int!
   productName: String!
   quantity: Int!
