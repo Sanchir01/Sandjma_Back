@@ -56,9 +56,12 @@ export class OrderService {
 		const price = await this.finalPrice(createOrderInput)
 
 		await this.createFileXlsx(createOrderInput, user.phone, price)
-
+		const fileOptions = {
+			filename: 'Заказ.xlsx',
+			contentType: 'text/plain'
+		}
 		await this.bot
-			.sendDocument(-1002045912785, './Заказ.xlsx')
+			.sendDocument(-1002045912785, './Заказ.xlsx', {}, fileOptions)
 			.catch(er => console.log(er))
 
 		return 'success'
