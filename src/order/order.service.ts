@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
 
 import { ForbiddenError } from '@nestjs/apollo'
-import * as excel from 'exceljs'
-import * as TelegramBot from 'node-telegram-bot-api'
+import excel from 'exceljs'
+import TelegramBot from 'node-telegram-bot-api'
 import { PrismaService } from 'src/prisma/prisma.service'
 import { CreateOrderInput } from './dto/CreateOrder.input'
 
