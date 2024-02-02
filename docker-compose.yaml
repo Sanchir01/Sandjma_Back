@@ -25,14 +25,14 @@ services:
       - .env
     restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 6*1FgC4GfbCAD1G1cBBFdg3ac12baGfB
+      POSTGRES_USER: gen_user
+      POSTGRES_PASSWORD: \40jMA#gRB|Fl
       POSTGRES_DB: railway
-      POSTGRES_HOST: monorail.proxy.rlwy.net
+      POSTGRES_HOST: 82.97.254.24
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
-      - 43344:5432
+      - 5432:5432
 
 volumes:
   pgdata:

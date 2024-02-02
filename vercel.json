@@ -1,6 +1,6 @@
 {
 	"version": 2,
-	"buildCommand": "pnpm build",
+	"buildCommand": "docker ",
 	"outputDirectory": "dist",
 	"builds": [
 		{
@@ -12,7 +12,7 @@
 		{
 			"src": "/(.*)",
 			"dest": "src/main.ts",
-			"methods": ["POST", "GET"]
+			"methods": ["POST", "GET", "PUT", "DELETE"]
 		}
 	]
 }
