@@ -141,15 +141,13 @@ export class ProductService {
 			where: { id: colorId }
 		})
 		if (!isExistColor) throw new NotFoundException('нету цвета такого')
-
+		console.log(isExistColor)
 		const product = await this.prisma.product.findMany({
 			where: {
 				slug: slug,
 				colors: {
 					some: {
-						id: {
-							not: colorId
-						}
+						id: colorId
 					}
 				}
 			},
