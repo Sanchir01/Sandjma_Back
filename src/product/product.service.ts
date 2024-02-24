@@ -145,11 +145,7 @@ export class ProductService {
 		const product = await this.prisma.product.findMany({
 			where: {
 				slug: slug,
-				colors: {
-					some: {
-						id: colorId
-					}
-				}
+				productColorId: colorId
 			},
 			include: { size: true, colors: true }
 		})

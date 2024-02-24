@@ -4,9 +4,6 @@ import { returnUserFields } from 'src/user/entities/user.entity'
 @ObjectType()
 export class AuthResponse {
 	@Field()
-	accessToken: string
-
-	@Field()
 	refreshToken: string
 
 	@Field(() => returnUserFields)
@@ -16,7 +13,7 @@ export class AuthResponse {
 @ObjectType()
 export class newTokensResponse {
 	@Field()
-	accessToken: string
+	refreshToken: string
 
 	@Field(() => returnUserFields)
 	User: returnUserFields

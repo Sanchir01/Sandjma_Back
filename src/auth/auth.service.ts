@@ -68,16 +68,16 @@ export class AuthService {
 		return { ...tokens, user: this.returnUserFields(oldUserPhone) }
 	}
 
-	async getNewTokens(refreshToken: string) {
-		const result = await this.jwt.verify(refreshToken)
+	async getNewTokens(accessToken: string) {
+		const result = await this.jwt.verify(accessToken)
 
 		if (!result) throw new UnauthorizedException('Невалидный рефреш токен')
 
 		const user = await this.prisma.user.findUnique({ where: { id: result.id } })
 
-		const tokens = await this.issueTokens(user)
+		const { refreshToken } = await this.issueTokens(user)
 
-		return { User: this.returnUserFields(user), ...tokens }
+		return { User: this.returnUserFields(user), refreshToken }
 	}
 
 	private async issueTokens(user: User) {

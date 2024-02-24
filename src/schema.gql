@@ -9,7 +9,6 @@ input AuthInput {
 }
 
 type AuthResponse {
-  accessToken: String!
   refreshToken: String!
   user: returnUserFields!
 }
@@ -110,7 +109,7 @@ type Mutation {
   deleteProductColor(productColorInput: ProductColorInput!): ProductColor!
   deleteSize(id: Float!): Size!
   login(loginInput: LoginInput!): AuthResponse!
-  newToken: AuthResponse!
+  newToken: newTokensResponse!
   placeOrderOne(createOrderInput: CreateOrderInput!): String!
   register(authInput: AuthInput!): AuthResponse!
   toggleFavoritesProfile(productId: Float!): String!
@@ -238,6 +237,11 @@ type User {
 type allProductsAndLength {
   length: Int!
   products: [Product!]!
+}
+
+type newTokensResponse {
+  User: returnUserFields!
+  refreshToken: String!
 }
 
 type returnUserFields {

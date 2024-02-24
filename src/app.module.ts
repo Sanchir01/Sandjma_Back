@@ -8,15 +8,15 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { AuthModule } from './auth/auth.module'
 import { CategoryModule } from './category/category.module'
+import { ColorModule } from './color/color.module'
+import { InsulationModule } from './insulation/insulation.module'
+import { OrderModule } from './order/order.module'
 import { PaginationModule } from './pagination/pagination.module'
 import { PrismaModule } from './prisma/prisma.module'
+import { ProductColorModule } from './product-color/product-color.module'
 import { ProductModule } from './product/product.module'
 import { SizeModule } from './size/size.module'
 import { UserModule } from './user/user.module'
-import { ColorModule } from './color/color.module';
-import { InsulationModule } from './insulation/insulation.module';
-import { ProductColorModule } from './product-color/product-color.module';
-import { OrderModule } from './order/order.module';
 
 @Module({
 	imports: [
@@ -29,6 +29,7 @@ import { OrderModule } from './order/order.module';
 			context: ({ req, res }) => ({ req, res }),
 			plugins: [ApolloServerPluginLandingPageLocalDefault()]
 		}),
+
 		PrismaModule,
 		AuthModule,
 		UserModule,
