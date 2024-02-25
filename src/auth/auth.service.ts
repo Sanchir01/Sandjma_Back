@@ -75,9 +75,9 @@ export class AuthService {
 
 		const user = await this.prisma.user.findUnique({ where: { id: result.id } })
 
-		const { refreshToken } = await this.issueTokens(user)
+		const tokens = await this.issueTokens(user)
 
-		return { User: this.returnUserFields(user), refreshToken }
+		return { user: this.returnUserFields(user), ...tokens }
 	}
 
 	private async issueTokens(user: User) {

@@ -8,7 +8,7 @@ import { CreateInsolationInput } from './dto/createInsolation.input'
 import { UpdateInsolationInput } from './dto/updateInsolatuon.input'
 
 @Injectable()
-export class InsulationService {
+export class InsulationService {c
 	constructor(private prisma: PrismaService) {}
 
 	async getAll() {

@@ -53,7 +53,7 @@ export class ProductService {
 				slug: createProductInput.categorySlug.toLowerCase().replace(/\s+/g, '-')
 			}
 		})
-
+		
 		if (!isExistCategory) throw new BadRequestException('Нету такой категории')
 
 		const isExistInsolution = await this.prisma.insulation.findUnique({
@@ -142,6 +142,8 @@ export class ProductService {
 		})
 		if (!isExistColor) throw new NotFoundException('нету цвета такого')
 		console.log(isExistColor)
+		
+
 		const product = await this.prisma.product.findMany({
 			where: {
 				slug: slug,

@@ -4,7 +4,7 @@ import { Auth } from 'src/decorators/auth.decorator'
 import { AuthService } from './auth.service'
 import { AuthInput } from './dto/auth.input'
 import { LoginInput } from './dto/login.input'
-import { AuthResponse, newTokensResponse } from './entities/auth.entity'
+import { AuthResponse } from './entities/auth.entity'
 
 @Resolver()
 export class AuthResolver {
@@ -15,8 +15,8 @@ export class AuthResolver {
 		@Args('authInput') authInput: AuthInput,
 		@Context('res') res: Response
 	) {
-		const { accessToken, ...user } = await this.authService.register(authInput)
-		await this.authService.addAccessToken(res, accessToken)
+		const user = await this.authService.register(authInput)
+		await this.authService.addAccessToken(res, user.accessToken)
 		return user
 	}
 
@@ -25,15 +25,15 @@ export class AuthResolver {
 		@Args('loginInput') loginInput: LoginInput,
 		@Context('res') res: Response
 	) {
-		const { accessToken, ...user } = await this.authService.login(loginInput)
+		const user = await this.authService.login(loginInput)
 		console.log(user)
-		await this.authService.addAccessToken(res, accessToken)
+		await this.authService.addAccessToken(res, user.accessToken)
 
 		return user
 	}
 
 	@Auth()
-	@Mutation(() => newTokensResponse)
+	@Mutation(() => AuthResponse)
 	async newToken(@Context('req') req: Request) {
 		const user = await this.authService.getNewTokens(
 			req.cookies.accessToken as string
