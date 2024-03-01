@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 
 import { ForbiddenError } from '@nestjs/apollo'
-import excel from 'exceljs'
+import * as excel from 'exceljs'
 import * as TelegramBot from 'node-telegram-bot-api'
 import { PrismaService } from 'src/prisma/prisma.service'
 import { CreateOrderInput } from './dto/CreateOrder.input'
@@ -30,6 +30,7 @@ export class OrderService {
 	}
 
 	async placeOrder(userId: number, createOrderInput: CreateOrderInput) {
+		console.log(createOrderInput)
 		const order = await this.prisma.order.create({
 			data: {
 				items: {
@@ -61,7 +62,7 @@ export class OrderService {
 			contentType: 'text/plain'
 		}
 		await this.bot
-			.sendDocument(-1002045912785, './Заказ.xlsx', {}, fileOptions)
+			.sendDocument(process.env.CHAT_ID, './Заказ.xlsx', {}, fileOptions)
 			.catch(er => console.log(er))
 
 		return 'success'
