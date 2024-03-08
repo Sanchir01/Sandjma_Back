@@ -24,7 +24,7 @@ export class ColorResolver {
 		if (user.isAdmin === true) {
 			return this.colorService.createColor(createColorInput)
 		} else {
-			throw new ForbiddenException('Вы не админитсратор')
+			throw new ForbiddenException('Вы не администратор')
 		}
 	}
 
@@ -38,7 +38,7 @@ export class ColorResolver {
 		if (user.isAdmin === true) {
 			return this.colorService.updateColor(createColorInput)
 		} else {
-			throw new ForbiddenException('Вы не админитсратор')
+			throw new ForbiddenException('Вы не администратор')
 		}
 	}
 
@@ -52,7 +52,7 @@ export class ColorResolver {
 		if (user.isAdmin === true) {
 			return this.colorService.deleteColor(createColorInput.name)
 		} else {
-			throw new ForbiddenException('Вы не админитсратор')
+			throw new ForbiddenException('Вы не администратор')
 		}
 	}
 }

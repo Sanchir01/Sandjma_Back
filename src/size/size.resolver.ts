@@ -17,8 +17,15 @@ export class SizeResolver {
 
 	@Mutation(() => Size)
 	@Auth()
-	async createSize(@Args('crateSizeInput') createSizeInput: CreateSizeInput) {
-		return this.sizeService.createSize(createSizeInput)
+	async createSize(
+		@Args('crateSizeInput') createSizeInput: CreateSizeInput,
+		@Context('user') user: User
+	) {
+		if (user.isAdmin === true) {
+			return this.sizeService.createSize(createSizeInput)
+		} else {
+			throw new ForbiddenException('Вы не администратор')
+		}
 	}
 
 	@Mutation(() => Size)
