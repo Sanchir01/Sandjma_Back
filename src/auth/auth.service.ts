@@ -104,4 +104,11 @@ export class AuthService {
 			sameSite: 'lax'
 		})
 	}
+	removeRefreshToken(res: Response) {
+		res.cookie(EnumTokens.ACCESS_TOKEN, '', {
+			httpOnly: true,
+			expires: new Date(0),
+			sameSite: 'lax'
+		})
+	}
 }

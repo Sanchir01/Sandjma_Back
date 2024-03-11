@@ -1,6 +1,5 @@
 import { Args, Context, Mutation, Resolver } from '@nestjs/graphql'
 import { Request, Response } from 'express'
-import { Auth } from 'src/decorators/auth.decorator'
 import { AuthService } from './auth.service'
 import { AuthInput } from './dto/auth.input'
 import { LoginInput } from './dto/login.input'
@@ -32,9 +31,16 @@ export class AuthResolver {
 		return user
 	}
 
-	@Auth()
+	@Mutation(() => String)
+	async logout(@Context('res') res: Response) {
+		this.authService.removeRefreshToken(res)
+		return 'true'
+	}
+
 	@Mutation(() => AuthResponse)
 	async newToken(@Context('req') req: Request) {
+		console.log(123213)
+		console.log(req.cookies.accessToken as string)
 		const user = await this.authService.getNewTokens(
 			req.cookies.accessToken as string
 		)

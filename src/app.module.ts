@@ -33,7 +33,10 @@ import { UserModule } from './user/user.module'
 		PrismaModule,
 		AuthModule,
 		UserModule,
-		ConfigModule.forRoot(),
+		ConfigModule.forRoot({
+			isGlobal: true,
+			envFilePath: ['.env.dev', '.env.prod']
+		}),
 		ProductModule,
 		PaginationModule,
 		CategoryModule,

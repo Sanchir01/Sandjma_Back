@@ -110,6 +110,7 @@ type Mutation {
   deleteProductColor(productColorInput: ProductColorInput!): ProductColor!
   deleteSize(id: Float!): Size!
   login(loginInput: LoginInput!): AuthResponse!
+  logout: String!
   newToken: AuthResponse!
   placeOrderOne(createOrderInput: CreateOrderInput!): String!
   register(authInput: AuthInput!): AuthResponse!
