@@ -1,7 +1,5 @@
-import { ForbiddenException } from '@nestjs/common'
-import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { Auth } from 'src/decorators/auth.decorator'
-import { User } from 'src/user/entities/user.entity'
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { AuthAdmin } from 'src/decorators/auth.decorator'
 import { CreateInsolationInput } from './dto/createInsolation.input'
 import {
 	DeleteInsolationInput,
@@ -20,40 +18,26 @@ export class InsulationResolver {
 	}
 
 	@Mutation(() => Insolation)
-	@Auth()
+	@AuthAdmin('admin')
 	async crateInsolation(
-		@Args('createInsolationInput') createInsolationInput: CreateInsolationInput,
-		@Context('user') user: User
+		@Args('createInsolationInput') createInsolationInput: CreateInsolationInput
 	) {
-		if (user.isAdmin === true) {
-			return this.insolationService.createInsolation(createInsolationInput)
-		} else {
-			throw new ForbiddenException('Вы не админитсратор')
-		}
+		return this.insolationService.createInsolation(createInsolationInput)
 	}
 
 	@Mutation(() => Insolation)
-	@Auth()
+	@AuthAdmin('admin')
 	async updateInsolation(
-		@Args('updateInsolationInput') updateInsolationInput: UpdateInsolationInput,
-		@Context('user') user: User
+		@Args('updateInsolationInput') updateInsolationInput: UpdateInsolationInput
 	) {
-		if (user.isAdmin === true) {
-			return this.insolationService.updateInsolation(updateInsolationInput)
-		} else {
-			throw new ForbiddenException('Вы не админитсратор')
-		}
+		return this.insolationService.updateInsolation(updateInsolationInput)
 	}
 
+	@AuthAdmin('admin')
 	@Mutation(() => Insolation)
 	async deleteInsolation(
-		@Args('deleteInsolationInput') deleteInsolationInput: DeleteInsolationInput,
-		@Context('user') user: User
+		@Args('deleteInsolationInput') deleteInsolationInput: DeleteInsolationInput
 	) {
-		if (user.isAdmin === true) {
-			return this.insolationService.deleteInsolation(deleteInsolationInput.name)
-		} else {
-			throw new ForbiddenException('Вы не админитсратор')
-		}
+		return this.insolationService.deleteInsolation(deleteInsolationInput.name)
 	}
 }

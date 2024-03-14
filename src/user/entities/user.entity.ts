@@ -1,5 +1,4 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql'
-import { Product } from 'src/product/entities/product.entity'
 
 @ObjectType()
 export class returnUserFields {
@@ -32,9 +31,6 @@ export class User {
 
 	@Field()
 	isAdmin: boolean
-
-	@Field(() => [Product], { nullable: true })
-	favorites: Product[]
 }
 
 @ObjectType()

@@ -11,8 +11,7 @@ import { AuthService } from './auth.service'
 			imports: [ConfigModule],
 			inject: [ConfigService],
 			useFactory: getJwtConfig
-		}),
-		ConfigModule
+		})
 	],
 	providers: [AuthResolver, AuthService]
 })

@@ -69,6 +69,7 @@ export class AuthService {
 	}
 
 	async getNewTokens(accessToken: string) {
+		
 		const result = await this.jwt.verify(accessToken)
 
 		if (!result) throw new UnauthorizedException('Невалидный рефреш токен')
@@ -82,8 +83,8 @@ export class AuthService {
 
 	private async issueTokens(user: User) {
 		const data = { id: user.id, isAdmin: user.isAdmin }
-		const accessToken = this.jwt.sign(data, { expiresIn: '30d' })
-		const refreshToken = this.jwt.sign(data, { expiresIn: '1d' })
+		const accessToken = this.jwt.sign(data, { expiresIn: '14d' })
+		const refreshToken = this.jwt.sign(data, { expiresIn: '1h' })
 
 		return { accessToken, refreshToken }
 	}

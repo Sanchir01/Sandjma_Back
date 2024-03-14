@@ -1,7 +1,5 @@
-import { UnauthorizedException } from '@nestjs/common'
-import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { Auth } from 'src/decorators/auth.decorator'
-import { User } from 'src/user/entities/user.entity'
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { AuthAdmin } from 'src/decorators/auth.decorator'
 import { CreateProductInput } from './dto/createProduct.input'
 import { GetAllProductInput } from './dto/getAllProducts.input'
 import { GetProductByColor, GetProductById } from './dto/getProductByIdAndFlug'
@@ -24,16 +22,11 @@ export class ProductResolver {
 	}
 
 	@Mutation(() => ReturnFieldByCreateProduct)
-	@Auth()
+	@AuthAdmin('admin')
 	createProduct(
-		@Context('user') user: User,
 		@Args('createProductInput') createProductInput: CreateProductInput
 	) {
-		if (user.isAdmin === true) {
-			return this.productService.createProduct(createProductInput)
-		} else {
-			throw new UnauthorizedException('Ты должен быть администратором')
-		}
+		return this.productService.createProduct(createProductInput)
 	}
 
 	@Query(() => Product)
@@ -52,15 +45,8 @@ export class ProductResolver {
 	}
 
 	@Mutation(() => Product)
-	@Auth()
-	deleteProduct(
-		@Context('user') user: User,
-		@Args('deleteProductById') deleteProductById: GetProductById
-	) {
-		if (user.isAdmin === true) {
-			return this.productService.delete(deleteProductById.id)
-		} else {
-			throw new UnauthorizedException('Ты не администратор!')
-		}
+	@AuthAdmin('admin')
+	deleteProduct(@Args('deleteProductById') deleteProductById: GetProductById) {
+		return this.productService.delete(deleteProductById.id)
 	}
 }

@@ -31,7 +31,7 @@ export class OrderService {
 
 	async placeOrder(userId: number, createOrderInput: CreateOrderInput) {
 	
-		console.log(createOrderInput)
+
 		const order = await this.prisma.order.create({
 			data: {
 				items: {

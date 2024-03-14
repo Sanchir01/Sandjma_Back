@@ -72,10 +72,6 @@ input GetCategoryByIdInput {
   id: Int!
 }
 
-input GetCategoryBySlugInput {
-  slug: String!
-}
-
 input GetProductByColor {
   colorId: Int!
   slug: String!
@@ -111,15 +107,19 @@ type Mutation {
   deleteSize(id: Float!): Size!
   login(loginInput: LoginInput!): AuthResponse!
   logout: String!
-  newToken: AuthResponse!
+  newToken: NewTokensResponse!
   placeOrderOne(createOrderInput: CreateOrderInput!): String!
   register(authInput: AuthInput!): AuthResponse!
-  toggleFavoritesProfile(productId: Float!): String!
   updateCategory(updateCategoryInput: UpdateCategoryInput!): ResponseCategory!
   updateColor(updateReturnColorsInput: CreateColorInput!): ReturnColors!
   updateInsolation(updateInsolationInput: UpdateInsolationInput!): Insolation!
   updateProductColor(productColorInput: ProductColorInput!): ProductColor!
   updateProfile(updateUserProfileInput: UpdateUserProfileInput!): User!
+}
+
+type NewTokensResponse {
+  refreshToken: String!
+  user: returnUserFields!
 }
 
 input OrderItemDto {
@@ -171,9 +171,6 @@ type Query {
   getAllProducts(getAllProductInput: GetAllProductInput!): allProductsAndLength!
   getAllSize: [Size!]!
   getCategoryById(getCategoryByIdInput: GetCategoryByIdInput!): ResponseCategory!
-
-  """nameGetCategoryBySlug"""
-  getCategoryBySlug(getCategoryBySlugInput: GetCategoryBySlugInput!): ResponseCategory!
   getProductByColor(getProductByColor: GetProductByColor!): [Product!]!
   getProductById(getProductById: GetProductById!): Product!
   getProfile: User!
@@ -229,7 +226,6 @@ input UpdateUserProfileInput {
 type User {
   avatarPath: String!
   email: String!
-  favorites: [Product!]
   id: Int!
   isAdmin: Boolean!
   name: String!

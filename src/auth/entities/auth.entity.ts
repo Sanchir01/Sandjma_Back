@@ -14,10 +14,10 @@ export class AuthResponse {
 }
 
 @ObjectType()
-export class newTokensResponse {
+export class NewTokensResponse {
 	@Field()
 	refreshToken: string
 
 	@Field(() => returnUserFields)
-	User: returnUserFields
+	user: returnUserFields
 }

@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model User {
@@ -18,7 +19,7 @@ model User {
   avatarPath String
   isAdmin    Boolean   @map("is_admin")
   orders     Order[]
-  favorites  Product[]
+  Product    Product[]
   reviews    Review[]
 }
 

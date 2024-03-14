@@ -1,12 +1,11 @@
 import { UnauthorizedException } from '@nestjs/common'
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { Auth } from 'src/decorators/auth.decorator'
+import { AuthAdmin } from 'src/decorators/auth.decorator'
 import { User } from 'src/user/entities/user.entity'
 import { CategoryService } from './category.service'
 import {
 	CreateCategoryInput,
 	GetCategoryByIdInput,
-	GetCategoryBySlugInput,
 	UpdateCategoryInput
 } from './dto/createCategory.input'
 import { ResponseCategory } from './entities/category.entity'
@@ -15,13 +14,14 @@ import { ResponseCategory } from './entities/category.entity'
 export class CategoryResolver {
 	constructor(private readonly categoryService: CategoryService) {}
 
+	@AuthAdmin('admin')
 	@Query(() => [ResponseCategory], { description: 'allCategories' })
 	getAllCategories() {
 		return this.categoryService.getAllCategory()
 	}
 
 	@Mutation(() => ResponseCategory)
-	@Auth()
+	@AuthAdmin('admin')
 	createCategory(
 		@Args('createCategoryInput') createCategoryInput: CreateCategoryInput,
 		@Context('user') user: User
@@ -34,7 +34,7 @@ export class CategoryResolver {
 	}
 
 	@Mutation(() => ResponseCategory)
-	@Auth()
+	@AuthAdmin('admin')
 	updateCategory(
 		@Args('updateCategoryInput') updateCategoryInput: UpdateCategoryInput,
 		@Context('user') user: User
@@ -48,21 +48,13 @@ export class CategoryResolver {
 	}
 
 	@Mutation(() => ResponseCategory)
-	@Auth()
+	@AuthAdmin('admin')
 	deleteCategory(@Args('id') id: number, @Context('user') user: User) {
 		if (user.isAdmin === true) {
 			return this.categoryService.deleteCategory(id)
 		} else {
 			throw new UnauthorizedException('Ты не администратор!')
 		}
-	}
-
-	@Query(() => ResponseCategory, { description: 'nameGetCategoryBySlug' })
-	getCategoryBySlug(
-		@Args('getCategoryBySlugInput')
-		getCategoryBySlugInput: GetCategoryBySlugInput
-	) {
-		return this.categoryService.getCategoryBySlug(getCategoryBySlugInput.slug)
 	}
 
 	@Query(() => ResponseCategory)

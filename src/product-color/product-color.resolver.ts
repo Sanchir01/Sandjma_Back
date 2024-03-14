@@ -1,5 +1,5 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { Auth } from 'src/decorators/auth.decorator'
+import { AuthAdmin } from 'src/decorators/auth.decorator'
 import { ProductColorInput } from './dto/CreateProductColor.input'
 import { ProductColor } from './entities/productColor.entity'
 import { ProductColorService } from './product-color.service'
@@ -14,7 +14,7 @@ export class ProductColorResolver {
 	}
 
 	@Mutation(() => ProductColor)
-	@Auth()
+	@AuthAdmin('admin')
 	async createProductColor(
 		@Args('productColorInput') productColorInput: ProductColorInput
 	) {
@@ -22,7 +22,7 @@ export class ProductColorResolver {
 	}
 
 	@Mutation(() => ProductColor)
-	@Auth()
+	@AuthAdmin('admin')
 	async updateProductColor(
 		@Args('productColorInput') productColorInput: ProductColorInput
 	) {
@@ -30,8 +30,10 @@ export class ProductColorResolver {
 	}
 
 	@Mutation(() => ProductColor)
-	@Auth()
-	async deleteProductColor(@Args('productColorInput') productColorInput: ProductColorInput) {
+	@AuthAdmin('admin')
+	async deleteProductColor(
+		@Args('productColorInput') productColorInput: ProductColorInput
+	) {
 		return this.productColorService.deleteProductColor(productColorInput)
 	}
 }
