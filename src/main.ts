@@ -9,8 +9,8 @@ async function bootstrap() {
 		credentials: true,
 		origin:
 			process.env.NODE_ENV === 'production'
-				? 'https://sandjmaback.ru'
-				: 'http://localhost:3000'
+				? 'sandjmaback.ru'
+				: 'localhost:3000'
 	})
 	app.use(cookieParser())
 	await app.listen(process.env.PORT)
