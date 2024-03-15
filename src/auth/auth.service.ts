@@ -95,14 +95,16 @@ export class AuthService {
 			isAdmin: user.isAdmin
 		}
 	}
-	
+
 	addAccessToken(res: Response, accessToken: string) {
 		const expireIn = new Date()
 		expireIn.setDate(expireIn.getDate() + 30)
 		res.cookie(EnumTokens.ACCESS_TOKEN, accessToken, {
 			httpOnly: true,
 			expires: expireIn,
-			sameSite: 'none',
+			domain:
+				process.env.NODE_ENV === 'production' ? 'sandjmaback.ru' : 'localhost',
+			sameSite: 'strict',
 			secure: true
 		})
 	}
