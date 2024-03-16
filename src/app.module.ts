@@ -29,7 +29,6 @@ import { UserModule } from './user/user.module'
 			context: ({ req, res }) => ({ req, res }),
 			plugins: [ApolloServerPluginLandingPageLocalDefault()]
 		}),
-
 		PrismaModule,
 		AuthModule,
 		UserModule,
