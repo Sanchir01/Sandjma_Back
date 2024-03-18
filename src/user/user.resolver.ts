@@ -3,7 +3,6 @@ import { AuthAdmin } from 'src/decorators/auth.decorator'
 import { UpdateUserProfileInput } from './dto/updateUserProfile.input'
 import { JwtReturnUserFields, User } from './entities/user.entity'
 import { UserService } from './user.service'
-
 @Resolver()
 export class UserResolver {
 	constructor(private readonly userService: UserService) {}

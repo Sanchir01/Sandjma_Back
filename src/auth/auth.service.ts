@@ -102,8 +102,9 @@ export class AuthService {
 		res.cookie(EnumTokens.ACCESS_TOKEN, accessToken, {
 			httpOnly: true,
 			expires: expireIn,
-			domain:
-				process.env.NODE_ENV === 'production' ? 'sandjmaback.ru' : 'localhost',
+			domain: process.env.DOMAIN_COOKIE
+				? process.env.DOMAIN_COOKIE
+				: 'localhost',
 			sameSite: 'strict',
 			secure: true
 		})
@@ -111,9 +112,10 @@ export class AuthService {
 
 	removeRefreshToken(res: Response) {
 		res.cookie(EnumTokens.ACCESS_TOKEN, '', {
+			domain: process.env.DOMAIN_COOKIE ? 'www.sandjma.ru' : 'localhost',
 			httpOnly: true,
 			expires: new Date(0),
-			sameSite: 'lax'
+			sameSite: 'strict'
 		})
 	}
 }
