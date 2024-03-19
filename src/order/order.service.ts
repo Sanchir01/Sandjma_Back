@@ -30,9 +30,7 @@ export class OrderService {
 	}
 
 	async placeOrder(userId: number, createOrderInput: CreateOrderInput) {
-	
-
-		const order = await this.prisma.order.create({
+		await this.prisma.order.create({
 			data: {
 				items: {
 					create: createOrderInput.items.map(item => ({
@@ -53,22 +51,28 @@ export class OrderService {
 		if (!user) {
 			throw new ForbiddenError('пройдите регистрацию')
 		}
-		console.log(order)
 
 		const price = await this.finalPrice(createOrderInput)
 
 		await this.createFileXlsx(createOrderInput, user.phone, price)
 		const fileOptions = {
 			filename: 'Заказ.xlsx',
-			contentType: 'text/plain'
+			contentType: 'application/octet-stream'
 		}
 		await this.bot
 			.sendDocument(process.env.CHAT_ID, './Заказ.xlsx', {}, fileOptions)
-			.catch(er => console.log(er))
+			.catch(er => console.log(er.message))
 
 		return 'success'
 	}
 
+	sayHi() {
+		console.log(process.env.CHAT_ID)
+		this.bot
+			.sendMessage(process.env.CHAT_ID, 'hi')
+			.catch(er => console.log(er.message))
+		return 'hi'
+	}
 	private async createFileXlsx(
 		createOrderInput: CreateOrderInput,
 		phone: string,

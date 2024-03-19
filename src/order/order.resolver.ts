@@ -15,13 +15,18 @@ export class OrderResolver {
 	}
 
 	@Mutation(() => String)
+	async HiBot() {
+		return this.orderService.sayHi()
+	}
+
+	@Mutation(() => String)
 	@AuthAdmin()
 	async placeOrderOne(
 		@Context('user') user: User,
 		@Args('createOrderInput') createOrderInput: CreateOrderInput
 	) {
 		console.log(user)
-		
+
 		return this.orderService.placeOrder(user.id, createOrderInput)
 	}
 }

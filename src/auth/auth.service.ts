@@ -1,7 +1,6 @@
 import {
 	BadRequestException,
 	Injectable,
-	NotFoundException,
 	UnauthorizedException
 } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
@@ -55,13 +54,13 @@ export class AuthService {
 			where: { phone: loginInput.phone }
 		})
 		if (!oldUserPhone)
-			throw new NotFoundException('Непправильный номер телефона')
+			throw new UnauthorizedException('Неправильный номер телефона')
 
 		const isValidPassword = await verify(
 			oldUserPhone.password,
 			loginInput.password
 		)
-		if (!isValidPassword) throw new NotFoundException('Непправильный пароль')
+		if (!isValidPassword) throw new UnauthorizedException('Неправильный пароль')
 
 		const tokens = await this.issueTokens(oldUserPhone)
 
@@ -102,9 +101,10 @@ export class AuthService {
 		res.cookie(EnumTokens.ACCESS_TOKEN, accessToken, {
 			httpOnly: true,
 			expires: expireIn,
-			domain: process.env.DOMAIN_COOKIE
-				? process.env.DOMAIN_COOKIE
-				: 'localhost',
+			domain:
+				process.env.NODE_ENV === 'production'
+					? process.env.DOMAIN_COOKIE
+					: 'localhost',
 			sameSite: 'strict',
 			secure: true
 		})
@@ -112,7 +112,10 @@ export class AuthService {
 
 	removeRefreshToken(res: Response) {
 		res.cookie(EnumTokens.ACCESS_TOKEN, '', {
-			domain: process.env.DOMAIN_COOKIE ? 'www.sandjma.ru' : 'localhost',
+			domain:
+				process.env.NODE_ENV === 'production'
+					? process.env.DOMAIN_COOKIE
+					: 'localhost',
 			httpOnly: true,
 			expires: new Date(0),
 			sameSite: 'strict'
