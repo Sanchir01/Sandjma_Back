@@ -28,7 +28,7 @@ import { UserModule } from './user/user.module'
 			driver: ApolloDriver,
 			autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
 			sortSchema: true,
-			playground: false,
+			playground: process.env.NODE_ENV === 'production' ? true : false,
 			status400ForVariableCoercionErrors: true,
 			context: ({ req, res }) => ({ req, res }),
 			plugins: [
@@ -38,7 +38,7 @@ import { UserModule } from './user/user.module'
 				ApolloServerPluginInlineTrace()
 			],
 			cache: 'bounded',
-			introspection: true
+			introspection: process.env.NODE_ENV === 'production' ? true : false
 		}),
 		PrismaModule,
 		AuthModule,
