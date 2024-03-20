@@ -1,4 +1,7 @@
-import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
+import {
+	ApolloServerPluginLandingPageLocalDefault,
+	ApolloServerPluginLandingPageProductionDefault
+} from '@apollo/server/plugin/landingPage/default'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
@@ -27,7 +30,12 @@ import { UserModule } from './user/user.module'
 			playground: false,
 			status400ForVariableCoercionErrors: true,
 			context: ({ req, res }) => ({ req, res }),
-			plugins: [ApolloServerPluginLandingPageLocalDefault()]
+			plugins: [
+				process.env.NODE_ENV === 'production'
+					? ApolloServerPluginLandingPageProductionDefault()
+					: ApolloServerPluginLandingPageLocalDefault({ footer: false })
+			],
+			cache: 'bounded'
 		}),
 		PrismaModule,
 		AuthModule,
