@@ -1,3 +1,4 @@
+import { ApolloServerPluginInlineTrace } from '@apollo/server/plugin/inlineTrace'
 import {
 	ApolloServerPluginLandingPageLocalDefault,
 	ApolloServerPluginLandingPageProductionDefault
@@ -33,9 +34,11 @@ import { UserModule } from './user/user.module'
 			plugins: [
 				process.env.NODE_ENV === 'production'
 					? ApolloServerPluginLandingPageProductionDefault()
-					: ApolloServerPluginLandingPageLocalDefault({ footer: false })
+					: ApolloServerPluginLandingPageLocalDefault({ footer: false }),
+				ApolloServerPluginInlineTrace()
 			],
-			cache: 'bounded'
+			cache: 'bounded',
+			introspection: true
 		}),
 		PrismaModule,
 		AuthModule,
