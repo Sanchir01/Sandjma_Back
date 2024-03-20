@@ -32,7 +32,8 @@ import { UserModule } from './user/user.module'
 				ApolloServerPluginLandingPageLocalDefault({ footer: false }),
 				ApolloServerPluginInlineTrace()
 			],
-			cache: 'bounded'
+			cache: 'bounded',
+			introspection: true
 		}),
 		PrismaModule,
 		AuthModule,
