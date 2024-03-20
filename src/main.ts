@@ -10,8 +10,7 @@ async function bootstrap() {
 		origin:
 			process.env.NODE_ENV === 'production'
 				? process.env.DOMAIN_PROD
-				: 'http://localhost:3000',
-		methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+				: 'http://localhost:3000'
 	})
 	app.use(cookieParser())
 	await app.listen(process.env.PORT)
