@@ -1,8 +1,5 @@
 import { ApolloServerPluginInlineTrace } from '@apollo/server/plugin/inlineTrace'
-import {
-	ApolloServerPluginLandingPageLocalDefault,
-	ApolloServerPluginLandingPageProductionDefault
-} from '@apollo/server/plugin/landingPage/default'
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
@@ -33,12 +30,12 @@ import { UserModule } from './user/user.module'
 			context: ({ req, res }) => ({ req, res }),
 			plugins: [
 				process.env.NODE_ENV === 'production'
-					? ApolloServerPluginLandingPageProductionDefault()
+					? {}
 					: ApolloServerPluginLandingPageLocalDefault({ footer: false }),
 				ApolloServerPluginInlineTrace()
 			],
 			cache: 'bounded',
-			introspection: process.env.NODE_ENV === 'production' ? true : false
+			introspection: process.env.NODE_ENV === 'production' ? false : true
 		}),
 		PrismaModule,
 		AuthModule,
