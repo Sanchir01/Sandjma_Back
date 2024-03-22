@@ -9,7 +9,7 @@ async function bootstrap() {
 		credentials: true,
 		origin:
 			process.env.NODE_ENV === 'production'
-				? process.env.DOMAIN_PROD
+				? process.env.DOMAIN_PROD_CLIENT
 				: 'http://localhost:3000'
 	})
 	app.use(cookieParser())

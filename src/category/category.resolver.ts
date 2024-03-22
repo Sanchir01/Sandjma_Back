@@ -14,7 +14,6 @@ import { ResponseCategory } from './entities/category.entity'
 export class CategoryResolver {
 	constructor(private readonly categoryService: CategoryService) {}
 
-	@AuthAdmin('admin')
 	@Query(() => [ResponseCategory], { description: 'allCategories' })
 	getAllCategories() {
 		return this.categoryService.getAllCategory()
