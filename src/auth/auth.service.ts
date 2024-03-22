@@ -100,8 +100,12 @@ export class AuthService {
 		expireIn.setDate(expireIn.getDate() + 30)
 		res.cookie(EnumTokens.ACCESS_TOKEN, accessToken, {
 			httpOnly: true,
+			domain:
+				process.env.NODE_ENV === 'production'
+					? process.env.DOMAIN_PROD
+					: 'http://localhost:3000',
 			expires: expireIn,
-			sameSite: 'none',
+			sameSite: 'lax',
 			secure: true
 		})
 	}
