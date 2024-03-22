@@ -101,7 +101,7 @@ export class AuthService {
 		res.cookie(EnumTokens.ACCESS_TOKEN, accessToken, {
 			httpOnly: true,
 			expires: expireIn,
-			sameSite: 'strict',
+			sameSite: 'none',
 			secure: true
 		})
 	}
