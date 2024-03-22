@@ -102,10 +102,10 @@ export class AuthService {
 			httpOnly: true,
 			domain:
 				process.env.NODE_ENV === 'production'
-					? process.env.DOMAIN_BACK
-					: 'http://localhost:3000',
+					? process.env.DOMAIN_COOKIE
+					: 'localhost',
 			expires: expireIn,
-			sameSite: 'none',
+			sameSite: 'strict',
 			secure: true
 		})
 	}

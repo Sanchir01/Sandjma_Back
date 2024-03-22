@@ -8,7 +8,6 @@ import { ReturnColors } from './entities/Color.entity'
 export class ColorResolver {
 	constructor(private readonly colorService: ColorService) {}
 
-	@AuthAdmin()
 	@Query(() => [ReturnColors])
 	async getAllColors() {
 		return this.colorService.getAllColors()
