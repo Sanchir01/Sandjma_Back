@@ -1,4 +1,5 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { Request, Response } from 'express'
 import { AuthAdmin } from 'src/decorators/auth.decorator'
 import { CreateSizeInput } from './dto/createSize.input'
 import { Size } from './entity/size.entituy'
@@ -9,7 +10,11 @@ export class SizeResolver {
 	constructor(private readonly sizeService: SizeService) {}
 
 	@Query(() => [Size])
-	async getAllSize() {
+	async getAllSize(
+		@Context('res') res: Response,
+		@Context('req') req: Request
+	) {
+		console.log(res.cookie, req.cookies)
 		return this.sizeService.getAllSize()
 	}
 

@@ -3,12 +3,6 @@ import { returnUserFields } from 'src/user/entities/user.entity'
 
 @ObjectType()
 export class AuthResponse {
-	@Field()
-	accessToken: string
-
-	@Field()
-	refreshToken: string
-
 	@Field(() => returnUserFields)
 	user: returnUserFields
 }

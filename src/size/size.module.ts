@@ -3,7 +3,6 @@ import { SizeResolver } from './size.resolver'
 import { SizeService } from './size.service'
 
 @Module({
-	providers: [SizeResolver, SizeService,],
-	imports: [SizeModule]
+	providers: [SizeResolver, SizeService]
 })
 export class SizeModule {}

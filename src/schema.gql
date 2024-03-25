@@ -9,8 +9,6 @@ input AuthInput {
 }
 
 type AuthResponse {
-  accessToken: String!
-  refreshToken: String!
   user: returnUserFields!
 }
 
@@ -108,7 +106,7 @@ type Mutation {
   deleteSize(id: Float!): Size!
   login(loginInput: LoginInput!): AuthResponse!
   logout: String!
-  newToken: NewTokensResponse!
+  newToken: AuthResponse!
   placeOrderOne(createOrderInput: CreateOrderInput!): String!
   register(authInput: AuthInput!): AuthResponse!
   updateCategory(updateCategoryInput: UpdateCategoryInput!): ResponseCategory!
@@ -116,11 +114,6 @@ type Mutation {
   updateInsolation(updateInsolationInput: UpdateInsolationInput!): Insolation!
   updateProductColor(productColorInput: ProductColorInput!): ProductColor!
   updateProfile(updateUserProfileInput: UpdateUserProfileInput!): User!
-}
-
-type NewTokensResponse {
-  refreshToken: String!
-  user: returnUserFields!
 }
 
 input OrderItemDto {

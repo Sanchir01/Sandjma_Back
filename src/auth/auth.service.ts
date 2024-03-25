@@ -105,14 +105,24 @@ export class AuthService {
 			secure: true
 		})
 	}
-
+	AddRefreshToken(res: Response, refreshToken: string) {
+		const expireIn = new Date()
+		expireIn.setHours(expireIn.getHours() + 4)
+		console.log(expireIn)
+		res.cookie(EnumTokens.REFRESH_TOKEN, refreshToken, {
+			httpOnly: false,
+			expires: expireIn,
+			sameSite: 'none',
+			secure: true
+		})
+	}
 	removeRefreshToken(res: Response) {
 		res.cookie(EnumTokens.ACCESS_TOKEN, '', {
 			domain:
 				process.env.NODE_ENV === 'production'
-					? process.env.DOMAIN_COOKIE
+					? process.env.DOMAIN_BACK
 					: 'localhost',
-			httpOnly: true,
+			httpOnly: false,
 			expires: new Date(0),
 			sameSite: 'strict'
 		})
