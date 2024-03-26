@@ -6,9 +6,8 @@ import { UserService } from './user.service'
 @Resolver()
 export class UserResolver {
 	constructor(private readonly userService: UserService) {}
-
-	@Query(() => User)
 	@AuthAdmin()
+	@Query(() => User)
 	getProfile(@Context('user') user: JwtReturnUserFields) {
 		return this.userService.getUserProfile(user.id)
 	}

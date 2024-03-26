@@ -83,7 +83,6 @@ export class AuthService {
 		const data = { id: user.id, isAdmin: user.isAdmin }
 		const accessToken = this.jwt.sign(data, { expiresIn: '14d' })
 		const refreshToken = this.jwt.sign(data, { expiresIn: '1h' })
-
 		return { accessToken, refreshToken }
 	}
 
@@ -96,22 +95,21 @@ export class AuthService {
 	}
 
 	addAccessToken(res: Response, accessToken: string) {
-		const expireIn = new Date()
-		expireIn.setDate(expireIn.getDate() + 30)
+		const accessDate = new Date()
+		accessDate.setDate(accessDate.getDate() + 30)
 		res.cookie(EnumTokens.ACCESS_TOKEN, accessToken, {
 			httpOnly: true,
-			expires: expireIn,
+			expires: accessDate,
 			sameSite: 'none',
 			secure: true
 		})
 	}
 	AddRefreshToken(res: Response, refreshToken: string) {
-		const expireIn = new Date()
-		expireIn.setHours(expireIn.getHours() + 4)
-		console.log(expireIn)
+		const myDate = new Date()
+		myDate.setHours(myDate.getHours() + 1)
 		res.cookie(EnumTokens.REFRESH_TOKEN, refreshToken, {
 			httpOnly: false,
-			expires: expireIn,
+			expires: myDate,
 			sameSite: 'none',
 			secure: true
 		})

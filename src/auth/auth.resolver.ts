@@ -4,7 +4,7 @@ import { AuthNewToken } from 'src/decorators/auth.decorator'
 import { AuthService } from './auth.service'
 import { AuthInput } from './dto/auth.input'
 import { LoginInput } from './dto/login.input'
-import { AuthResponse } from './entities/auth.entity'
+import { AuthResponse, NewTokensResponse } from './entities/auth.entity'
 
 @Resolver()
 export class AuthResolver {
@@ -16,7 +16,7 @@ export class AuthResolver {
 		@Context('res') res: Response
 	) {
 		const user = await this.authService.register(authInput)
-		
+
 		await this.authService.addAccessToken(res, user.accessToken)
 
 		await this.authService.AddRefreshToken(res, user.refreshToken)
@@ -46,7 +46,7 @@ export class AuthResolver {
 	}
 
 	@AuthNewToken()
-	@Mutation(() => AuthResponse)
+	@Mutation(() => NewTokensResponse)
 	async newToken(@Context('req') req: Request, @Context('res') res: Response) {
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const { accessToken, ...user } = await this.authService.getNewTokens(
