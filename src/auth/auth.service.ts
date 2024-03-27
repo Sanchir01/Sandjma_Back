@@ -100,7 +100,8 @@ export class AuthService {
 		res.cookie(EnumTokens.ACCESS_TOKEN, accessToken, {
 			httpOnly: true,
 			expires: accessDate,
-
+			sameSite: 'lax',
+			partitioned: true,
 			secure: true
 		})
 	}
@@ -110,7 +111,8 @@ export class AuthService {
 		res.cookie(EnumTokens.REFRESH_TOKEN, refreshToken, {
 			httpOnly: false,
 			expires: myDate,
-
+			sameSite: 'lax',
+			partitioned: true,
 			secure: true
 		})
 	}
