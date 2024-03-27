@@ -102,9 +102,10 @@ export class AuthService {
 			'Set-Cookie',
 			cookie.serialize(EnumTokens.ACCESS_TOKEN, accessToken, {
 				partitioned: true,
-				httpOnly: false,
+				httpOnly: true,
+				domain: 'www.sandjma.ru',
 				expires: accessDate,
-				sameSite: 'none',
+				sameSite: 'lax',
 				secure: true
 			})
 		)
@@ -118,6 +119,7 @@ export class AuthService {
 			cookie.serialize(EnumTokens.REFRESH_TOKEN, refreshToken, {
 				httpOnly: false,
 				expires: myDate,
+				domain: 'www.sandjma.ru',
 				sameSite: 'none',
 				secure: true,
 				partitioned: true
