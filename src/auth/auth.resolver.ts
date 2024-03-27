@@ -17,9 +17,9 @@ export class AuthResolver {
 	) {
 		const user = await this.authService.register(authInput)
 
-		await this.authService.addAccessToken(res, user.accessToken)
+		this.authService.addAccessToken(res, user.accessToken)
 
-		await this.authService.AddRefreshToken(res, user.refreshToken)
+		this.authService.AddRefreshToken(res, user.refreshToken)
 
 		return user
 	}
@@ -30,11 +30,10 @@ export class AuthResolver {
 		@Context('res') res: Response
 	) {
 		const user = await this.authService.login(loginInput)
-		console.log(user)
-		await this.authService.addAccessToken(res, user.accessToken)
 
-		await this.authService.AddRefreshToken(res, user.refreshToken)
+		this.authService.AddRefreshToken(res, user.refreshToken)
 
+		this.authService.addAccessToken(res, user.accessToken)
 		return user
 	}
 
@@ -52,7 +51,7 @@ export class AuthResolver {
 		const { accessToken, ...user } = await this.authService.getNewTokens(
 			req.cookies.accessToken as string
 		)
-		await this.authService.AddRefreshToken(res, user.refreshToken)
+		this.authService.AddRefreshToken(res, user.refreshToken)
 
 		return user
 	}

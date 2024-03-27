@@ -6,12 +6,12 @@ import {
 import { JwtService } from '@nestjs/jwt'
 import { User } from '@prisma/client'
 import { hash, verify } from 'argon2'
+import * as cookie from 'cookie'
 import { Response } from 'express'
 import { PrismaService } from 'src/prisma/prisma.service'
 import { AuthInput } from './dto/auth.input'
 import { LoginInput } from './dto/login.input'
 import { EnumTokens } from './enum.tokens'
-
 @Injectable()
 export class AuthService {
 	constructor(
@@ -97,24 +97,32 @@ export class AuthService {
 	addAccessToken(res: Response, accessToken: string) {
 		const accessDate = new Date()
 		accessDate.setDate(accessDate.getDate() + 30)
-		res.cookie(EnumTokens.ACCESS_TOKEN, accessToken, {
-			httpOnly: true,
-			expires: accessDate,
-			sameSite: 'lax',
-			partitioned: true,
-			secure: true
-		})
+
+		res.setHeader(
+			'Set-Cookie',
+			cookie.serialize(EnumTokens.ACCESS_TOKEN, accessToken, {
+				partitioned: true,
+				httpOnly: false,
+				expires: accessDate,
+				sameSite: 'none',
+				secure: true
+			})
+		)
 	}
 	AddRefreshToken(res: Response, refreshToken: string) {
 		const myDate = new Date()
 		myDate.setHours(myDate.getHours() + 1)
-		res.cookie(EnumTokens.REFRESH_TOKEN, refreshToken, {
-			httpOnly: false,
-			expires: myDate,
-			sameSite: 'lax',
-			partitioned: true,
-			secure: true
-		})
+
+		res.setHeader(
+			'Set-Cookie',
+			cookie.serialize(EnumTokens.REFRESH_TOKEN, refreshToken, {
+				httpOnly: false,
+				expires: myDate,
+				sameSite: 'none',
+				secure: true,
+				partitioned: true
+			})
+		)
 	}
 	removeRefreshToken(res: Response) {
 		res.cookie(EnumTokens.ACCESS_TOKEN, '', {
