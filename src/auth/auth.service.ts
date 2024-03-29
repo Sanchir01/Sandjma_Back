@@ -94,47 +94,61 @@ export class AuthService {
 		}
 	}
 
-	addAccessToken(res: Response, accessToken: string) {
-		const accessDate = new Date()
-		accessDate.setDate(accessDate.getDate() + 30)
-
-		res.setHeader(
-			'Set-Cookie',
-			cookie.serialize(EnumTokens.ACCESS_TOKEN, accessToken, {
-				partitioned: true,
-				httpOnly: true,
-				domain: 'www.sandjma.ru',
-				expires: accessDate,
-				sameSite: 'lax',
-				secure: true
-			})
-		)
-	}
 	AddRefreshToken(res: Response, refreshToken: string) {
-		const myDate = new Date()
-		myDate.setHours(myDate.getHours() + 1)
+		const refreshDate = new Date()
+		refreshDate.setHours(refreshDate.getHours() + 4)
 
 		res.setHeader(
 			'Set-Cookie',
 			cookie.serialize(EnumTokens.REFRESH_TOKEN, refreshToken, {
+				partitioned: true,
 				httpOnly: false,
-				expires: myDate,
-				domain: 'www.sandjma.ru',
+				expires: refreshDate,
+				sameSite: 'none',
+				secure: true
+			})
+		)
+	}
+	AddTwoTokens(res: Response, refreshToken: string, accessToken: string) {
+		const refreshDate = new Date()
+		refreshDate.setHours(refreshDate.getHours() + 4)
+		const accessDate = new Date()
+		accessDate.setDate(accessDate.getDate() + 14)
+
+		res.setHeader('Set-Cookie', [
+			cookie.serialize(EnumTokens.REFRESH_TOKEN, refreshToken, {
+				httpOnly: false,
+				expires: refreshDate,
+				sameSite: 'none',
+				secure: true,
+				partitioned: true
+			}),
+			cookie.serialize(EnumTokens.ACCESS_TOKEN, accessToken, {
+				httpOnly: true,
+				expires: accessDate,
 				sameSite: 'none',
 				secure: true,
 				partitioned: true
 			})
-		)
+		])
 	}
+
 	removeRefreshToken(res: Response) {
-		res.cookie(EnumTokens.ACCESS_TOKEN, '', {
-			domain:
-				process.env.NODE_ENV === 'production'
-					? process.env.DOMAIN_BACK
-					: 'localhost',
-			httpOnly: false,
-			expires: new Date(0),
-			sameSite: 'strict'
-		})
+		res.setHeader('Set-Cookie', [
+			cookie.serialize(EnumTokens.REFRESH_TOKEN, '', {
+				httpOnly: false,
+				expires: new Date(0),
+				sameSite: 'none',
+				secure: true,
+				partitioned: true
+			}),
+			cookie.serialize(EnumTokens.ACCESS_TOKEN, '', {
+				httpOnly: true,
+				expires: new Date(0),
+				sameSite: 'none',
+				secure: true,
+				partitioned: true
+			})
+		])
 	}
 }

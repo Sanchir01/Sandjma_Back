@@ -17,9 +17,8 @@ export class AuthResolver {
 	) {
 		const user = await this.authService.register(authInput)
 
-		this.authService.addAccessToken(res, user.accessToken)
 
-		this.authService.AddRefreshToken(res, user.refreshToken)
+		this.authService.AddTwoTokens(res, user.refreshToken, user.accessToken)
 
 		return user
 	}
@@ -31,9 +30,9 @@ export class AuthResolver {
 	) {
 		const user = await this.authService.login(loginInput)
 
-		this.authService.AddRefreshToken(res, user.refreshToken)
+		this.authService.AddTwoTokens(res, user.refreshToken,user.accessToken)
 
-		this.authService.addAccessToken(res, user.accessToken)
+		
 		return user
 	}
 
