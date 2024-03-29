@@ -33,12 +33,16 @@ import { UserModule } from './user/user.module'
 			context: ({ req, res }) => ({ req, res }),
 			plugins: [
 				process.env.NODE_ENV === 'production'
-					? ApolloServerPluginLandingPageProductionDefault()
-					: ApolloServerPluginLandingPageLocalDefault({ footer: false }),
+					? ApolloServerPluginLandingPageProductionDefault({
+							includeCookies: true
+						})
+					: ApolloServerPluginLandingPageLocalDefault({
+							footer: false,
+							includeCookies: true
+						}),
 				ApolloServerPluginInlineTrace()
 			],
-			cache: 'bounded',
-			introspection: true
+			introspection: process.env.NODE_ENV === 'production' ? true : false
 		}),
 		PrismaModule,
 		AuthModule,
