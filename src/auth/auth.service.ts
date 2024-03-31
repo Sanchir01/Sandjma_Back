@@ -105,10 +105,6 @@ export class AuthService {
 				httpOnly: false,
 				path: '/',
 				sameSite: 'lax',
-				domain:
-					process.env.NODE_ENV !== 'development'
-						? 'localhost'
-						: process.env.DOMAIN_PROD,
 				expires: refreshDate,
 				secure: true
 			})
@@ -126,10 +122,7 @@ export class AuthService {
 				expires: refreshDate,
 				path: '/',
 				sameSite: 'lax',
-				domain:
-					process.env.NODE_ENV !== 'development'
-						? 'localhost'
-						: process.env.DOMAIN_PROD,
+
 				secure: true,
 				partitioned: true
 			}),
@@ -154,10 +147,6 @@ export class AuthService {
 				httpOnly: false,
 				expires: new Date(0),
 				sameSite: 'none',
-				domain:
-					process.env.NODE_ENV !== 'development'
-						? 'localhost'
-						: process.env.DOMAIN_PROD,
 				path: '/',
 				secure: true,
 				partitioned: true
