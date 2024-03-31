@@ -119,14 +119,14 @@ export class AuthService {
 			cookie.serialize(EnumTokens.REFRESH_TOKEN, refreshToken, {
 				httpOnly: false,
 				expires: refreshDate,
-				sameSite: 'none',
+				sameSite: 'lax',
 				secure: true,
 				partitioned: true
 			}),
 			cookie.serialize(EnumTokens.ACCESS_TOKEN, accessToken, {
 				httpOnly: true,
 				expires: accessDate,
-				sameSite: 'none',
+				sameSite: 'lax',
 				secure: true,
 				partitioned: true
 			})
