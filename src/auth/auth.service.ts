@@ -119,6 +119,7 @@ export class AuthService {
 			cookie.serialize(EnumTokens.REFRESH_TOKEN, refreshToken, {
 				httpOnly: false,
 				expires: refreshDate,
+				path: '/',
 				sameSite: 'lax',
 				secure: true,
 				partitioned: true
@@ -126,6 +127,7 @@ export class AuthService {
 			cookie.serialize(EnumTokens.ACCESS_TOKEN, accessToken, {
 				httpOnly: true,
 				expires: accessDate,
+				path: '/',
 				sameSite: 'lax',
 				secure: true,
 				partitioned: true
@@ -139,12 +141,21 @@ export class AuthService {
 				httpOnly: false,
 				expires: new Date(0),
 				sameSite: 'none',
+				domain:
+					process.env.NODE_ENV !== 'development'
+						? 'localhost'
+						: process.env.DOMAIN_PROD,
+				path: '/',
 				secure: true,
 				partitioned: true
 			}),
 			cookie.serialize(EnumTokens.ACCESS_TOKEN, '', {
 				httpOnly: true,
 				expires: new Date(0),
+				domain:
+					process.env.NODE_ENV !== 'development'
+						? 'localhost'
+						: process.env.DOMAIN_PROD,
 				sameSite: 'none',
 				secure: true,
 				partitioned: true

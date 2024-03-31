@@ -35,7 +35,7 @@ import { UserModule } from './user/user.module'
 				}),
 				ApolloServerPluginInlineTrace()
 			],
-			introspection: process.env.NODE_ENV === 'production' ? false : true
+			introspection: true
 		}),
 		PrismaModule,
 		AuthModule,
