@@ -129,10 +129,7 @@ export class AuthService {
 			cookie.serialize(EnumTokens.ACCESS_TOKEN, accessToken, {
 				httpOnly: true,
 				expires: accessDate,
-				domain:
-					process.env.NODE_ENV !== 'development'
-						? 'localhost'
-						: process.env.DOMAIN_PROD,
+
 				path: '/',
 				sameSite: 'lax',
 				secure: true,
