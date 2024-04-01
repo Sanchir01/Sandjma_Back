@@ -91,7 +91,6 @@ input LoginInput {
 }
 
 type Mutation {
-  HiBot: String!
   crateInsolation(createInsolationInput: CreateInsolationInput!): Insolation!
   createCategory(createCategoryInput: CreateCategoryInput!): ResponseCategory!
   createColor(createReturnColorsInput: CreateColorInput!): ReturnColors!

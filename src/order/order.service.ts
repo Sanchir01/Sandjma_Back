@@ -66,13 +66,7 @@ export class OrderService {
 		return 'success'
 	}
 
-	sayHi() {
-		console.log(process.env.CHAT_ID)
-		this.bot
-			.sendMessage(process.env.CHAT_ID, 'hi')
-			.catch(er => console.log(er.message))
-		return 'hi'
-	}
+
 	private async createFileXlsx(
 		createOrderInput: CreateOrderInput,
 		phone: string,

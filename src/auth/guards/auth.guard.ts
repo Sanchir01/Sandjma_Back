@@ -12,7 +12,7 @@ import { EnumTokens } from '../enum.tokens'
 export class AuthGuards implements CanActivate {
 	async canActivate(context: ExecutionContext) {
 		const ctx = GqlExecutionContext.create(context).getContext()
-		console.log(ctx.req.cookies[EnumTokens.REFRESH_TOKEN])
+		
 		if (!ctx.req.cookies[EnumTokens.REFRESH_TOKEN]) {
 			return false
 		}

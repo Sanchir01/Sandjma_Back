@@ -15,11 +15,6 @@ export class OrderResolver {
 	}
 
 	@Mutation(() => String)
-	async HiBot() {
-		return this.orderService.sayHi()
-	}
-
-	@Mutation(() => String)
 	@AuthAdmin()
 	async placeOrderOne(
 		@Context('user') user: User,
