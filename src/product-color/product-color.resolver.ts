@@ -9,7 +9,7 @@ export class ProductColorResolver {
 	constructor(private readonly productColorService: ProductColorService) {}
 
 	@Query(() => [ProductColor])
-	async getAllProduct() {
+	async getAllProductColor() {
 		return this.productColorService.GetAllProductColor()
 	}
 

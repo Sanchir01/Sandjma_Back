@@ -20,8 +20,6 @@ export class OrderResolver {
 		@Context('user') user: User,
 		@Args('createOrderInput') createOrderInput: CreateOrderInput
 	) {
-		console.log(user)
-
 		return this.orderService.placeOrder(user.id, createOrderInput)
 	}
 }

@@ -39,11 +39,13 @@
 		"exceljs": "^4.4.0",
 		"graphql": "^16.8.1",
 		"jsonwebtoken": "^9.0.2",
+		"nestjs-telegraf": "^2.7.0",
 		"node-telegram-bot-api": "^0.64.0",
 		"passport": "^0.6.0",
 		"passport-jwt": "^4.0.1",
 		"prisma": "^5.11.0",
-		"reflect-metadata": "^0.1.14"
+		"reflect-metadata": "^0.1.14",
+		"telegraf": "^4.16.3"
 	},
 	"devDependencies": {
 		"@nestjs/cli": "^10.3.2",

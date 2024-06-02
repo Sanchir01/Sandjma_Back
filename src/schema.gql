@@ -165,7 +165,7 @@ type Query {
   getAllColors: [ReturnColors!]!
   getAllInsolation: [Insolation!]!
   getAllOrders: String!
-  getAllProduct: [ProductColor!]!
+  getAllProductColor: [ProductColor!]!
   getAllProducts(getAllProductInput: GetAllProductInput!): allProductsAndLength!
   getAllSize: [Size!]!
   getCategoryById(getCategoryByIdInput: GetCategoryByIdInput!): ResponseCategory!

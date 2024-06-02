@@ -2,14 +2,17 @@ import { ApolloServerPluginInlineTrace } from '@apollo/server/plugin/inlineTrace
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
-import { ConfigModule } from '@nestjs/config'
+import { ConfigModule, ConfigService } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import { join } from 'path'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { AuthModule } from './auth/auth.module'
+
+import { TelegrafModule } from 'nestjs-telegraf'
 import { CategoryModule } from './category/category.module'
 import { ColorModule } from './color/color.module'
+import { getBotToken } from './config/telelgram.config'
 import { InsulationModule } from './insulation/insulation.module'
 import { OrderModule } from './order/order.module'
 import { PaginationModule } from './pagination/pagination.module'
@@ -21,6 +24,11 @@ import { UserModule } from './user/user.module'
 
 @Module({
 	imports: [
+		TelegrafModule.forRootAsync({
+			imports: [ConfigModule],
+			useFactory: getBotToken,
+			inject: [ConfigService]
+		}),
 		GraphQLModule.forRoot<ApolloDriverConfig>({
 			driver: ApolloDriver,
 			autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
