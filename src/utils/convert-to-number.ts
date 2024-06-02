@@ -12,3 +12,7 @@ export async function finalPrice(createOrderInput: CreateOrderInput) {
 	)
 	return allPriceSum
 }
+
+export function SlugifyString(str: string) {
+	return str.toLowerCase().replace(/\s+/g, '-')
+}

@@ -18,6 +18,7 @@
 		"test:cov": "jest --coverage",
 		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
 		"test:e2e": "jest --config ./test/jest-e2e.json",
+		"seed": "ts-node seed/seed.ts",
 		"migrate": "npx prisma migrate dev"
 	},
 	"dependencies": {
@@ -36,6 +37,7 @@
 		"cookie": "^0.6.0",
 		"cookie-parser": "^1.4.6",
 		"cross-env": "^7.0.3",
+		"dotenv": "^16.4.5",
 		"exceljs": "^4.4.0",
 		"graphql": "^16.8.1",
 		"jsonwebtoken": "^9.0.2",
@@ -48,6 +50,7 @@
 		"telegraf": "^4.16.3"
 	},
 	"devDependencies": {
+		"@faker-js/faker": "^8.4.1",
 		"@nestjs/cli": "^10.3.2",
 		"@nestjs/schematics": "^10.1.1",
 		"@nestjs/testing": "^10.3.5",
